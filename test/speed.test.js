@@ -1,7 +1,7 @@
 'use strict';
 
 const should = require('should');
-const speed = require('../src/speed.js');
+const speed = require('../lib/speed.js');
 
 const MODES = [ 'DRIVING', 'WALKING' ];
 const DISTANCES = [ 'SHORT', 'MEDIUM', 'LONG' ];

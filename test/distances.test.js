@@ -1,7 +1,7 @@
 'use strict';
 
 const should = require('should');
-const dists = require('../src/distances.js');
+const dists = require('../lib/distances.js');
 
 describe('distances.js', function() {
   describe('#toRad()', function() {

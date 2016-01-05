@@ -1,7 +1,7 @@
 'use strict';
 
-const dists = require('./distances.js');
-const speed = require('./speed.js');
+import dists from './distances.js';
+import speed from './speed.js';
 
 function _get(modeOfTransport) {
   if (!modeOfTransport) {
