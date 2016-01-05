@@ -1,0 +1,18 @@
+{
+  "name": "simple-eta",
+  "version": "0.1.0",
+  "description": "A simple, approximative, ETA library",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "ETA"
+  ],
+  "author": "alexjab <alexandre.jablon@gmail.com> (http://jablon.me/)",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "should": "^8.0.2"
+  }
+}
