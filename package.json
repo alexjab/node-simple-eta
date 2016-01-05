@@ -1,7 +1,7 @@
 {
   "name": "simple-eta",
   "version": "0.1.0",
-  "description": "A simple, approximative, ETA library",
+  "description": "A simple, approximate, ETA library",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
