@@ -2,9 +2,9 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 
 gulp.task('default', () => {
-  return gulp.src('src/index.js')
+  return gulp.src('./src/*.js')
     .pipe(babel({
       presets: [ 'es2015' ]
     }))
-    .pipe(gulp.dest('./'));
+    .pipe(gulp.dest('./dist'));
 });

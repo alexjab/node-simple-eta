@@ -1,1 +1,1 @@
-module.exports = require('./src/eta.js');
+module.exports = require('./dist/eta.js');
