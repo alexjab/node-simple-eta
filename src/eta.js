@@ -3,7 +3,7 @@
 const dists = require('./distances.js');
 const speed = require('./speed.js');
 
-function get(modeOfTransport) {
+function _get(modeOfTransport) {
   if (!modeOfTransport) {
     modeOfTransport = speed.inferModeOfTransportFromDistance(this._distance);
   }
@@ -19,18 +19,47 @@ function get(modeOfTransport) {
   };
 };
 
+function _from(from) {
+  if (!from) return this;
+  this._coordinates.from = from;
+
+  if (!this._coordinates.to) return this;
+
+  const args = [];
+  args.push.apply(args, from);
+  args.push.apply(args, this._coordinates.to);
+  this._distance = dists.getLonguestDistance.apply(this, args);
+  return this;
+};
+
+function _to(to) {
+  if (!to) return this;
+  this._coordinates.to = to;
+
+  if (!this._coordinates.from) return this;
+
+  const args = [];
+  args.push.apply(args, this._coordinates.from);
+  args.push.apply(args, to);
+  this._distance = dists.getLonguestDistance.apply(this, args);
+  return this;
+};
+
 function simpleEta(from, to) {
   const eta = {
     _coordinates: {
-      lat1: from[0],
-      long1: from[1],
-      lat2: to[0],
-      long2: to[1]
-    },
-    _distance: dists.getLonguestDistance(from[0], from[1], to[0], to[1])
+      from: null,
+      to: null,
+      waypoints: []
+    }
   };
 
-  eta.get = get;
+  eta.get = _get.bind(eta);
+  eta.from = _from.bind(eta);
+  eta.to = _to.bind(eta);
+
+  eta.from(from);
+  eta.to(to);
 
   return eta;
 };
