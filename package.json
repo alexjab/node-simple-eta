@@ -12,7 +12,13 @@
   "author": "alexjab <alexandre.jablon@gmail.com> (http://jablon.me/)",
   "license": "MIT",
   "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1",
     "mocha": "^2.3.4",
     "should": "^8.0.2"
+  },
+  "engines": {
+    "node": ">=4.2.4"
   }
 }
