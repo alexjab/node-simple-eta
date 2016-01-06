@@ -1,12 +1,11 @@
 'use strict';
 
 // http://stackoverflow.com/a/365853
-function toRad(deg) {
+export function toRad(deg) {
   return deg * (Math.PI / 180); 
 }
-module.exports.toRad = toRad;
 
-function getShortestDistance(lat1, lon1, lat2, lon2) {
+export function getShortestDistance(lat1, lon1, lat2, lon2) {
   const R = 6371000; // m
   const dLat = toRad(lat2-lat1);
   const dLon = toRad(lon2-lon1);
@@ -19,14 +18,11 @@ function getShortestDistance(lat1, lon1, lat2, lon2) {
   const d = R * c;
   return d;
 }
-module.exports.getShortestDistance = getShortestDistance;
 
-function getLonguestDistance(lat1, lon1, lat2, lon2) {
+export function getLonguestDistance(lat1, lon1, lat2, lon2) {
   return getShortestDistance(lat1, lon1, lat1, lon2) + getShortestDistance(lat1, lon2, lat2, lon2);
 }
-module.exports.getLonguestDistance = getLonguestDistance;
 
-function getAverageETA(distance, speed) {
+export function getAverageETA(distance, speed) {
   return Math.round(distance / speed);
 }
-module.exports.getAverageETA = getAverageETA;

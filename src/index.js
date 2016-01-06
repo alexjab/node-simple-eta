@@ -1,2 +1,2 @@
-import eta from './src/eta.js';
-module.exports = eta;
+import { simpleETA } from './eta.js';
+export default simpleETA;

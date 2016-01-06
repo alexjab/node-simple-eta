@@ -1,6 +1,6 @@
 'use strict';
 
-const MODE_SPEEDS = { // km/h
+export const MODE_SPEEDS = { // km/h
   DRIVING: {
     SHORT: 30,
     MEDIUM: 50,
@@ -12,17 +12,15 @@ const MODE_SPEEDS = { // km/h
     LONG: 4
   }
 };
-module.exports.MODE_SPEEDS = MODE_SPEEDS;
 
-function inferModeOfTransportFromDistance(distance) {
+export function inferModeOfTransportFromDistance(distance) {
   if (distance > 1000) {
     return 'driving';
   }
   return 'walking';
 };
-module.exports.inferModeOfTransportFromDistance = inferModeOfTransportFromDistance;
 
-function getAverageSpeed(distance, modeOfTransport) {
+export function getAverageSpeed(distance, modeOfTransport) {
   let meanSpeed = MODE_SPEEDS[modeOfTransport.toUpperCase()];
   let subjectiveDistance;
 
@@ -34,4 +32,3 @@ function getAverageSpeed(distance, modeOfTransport) {
   }
   return meanSpeed.LONG * 1000 / 3600;
 };
-module.exports.getAverageSpeed = getAverageSpeed;

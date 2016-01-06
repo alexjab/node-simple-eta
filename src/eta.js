@@ -1,7 +1,7 @@
 'use strict';
 
-import dists from './distances.js';
-import speed from './speed.js';
+import * as dists from './distances.js';
+import * as speed from './speed.js';
 
 function _get(modeOfTransport) {
   if (!modeOfTransport) {
@@ -45,7 +45,7 @@ function _to(to) {
   return this;
 };
 
-function simpleEta(from, to) {
+export function simpleETA(from, to) {
   const eta = {
     _coordinates: {
       from: null,
@@ -64,4 +64,3 @@ function simpleEta(from, to) {
   return eta;
 };
 
-module.exports = simpleEta;

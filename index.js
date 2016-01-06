@@ -1,1 +1,1 @@
-module.exports = require('./dist/eta.js');
+module.exports = require('./lib/index.js').default;

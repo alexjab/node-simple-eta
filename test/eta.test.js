@@ -1,7 +1,7 @@
 'use strict';
 
 const should = require('should');
-const simpleETA = require('../lib/eta.js');
+const simpleETA = require('../index.js');
 
 describe('eta.js', () => {
 
