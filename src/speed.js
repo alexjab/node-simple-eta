@@ -14,10 +14,10 @@ export const MODE_SPEEDS = { // km/h
 };
 
 export function inferModeOfTransportFromDistance(distance) {
-  if (distance > 1000) {
-    return 'driving';
+  if (distance < 2000) {
+    return 'walking';
   }
-  return 'walking';
+  return 'driving';
 };
 
 export function getAverageSpeed(distance, modeOfTransport) {

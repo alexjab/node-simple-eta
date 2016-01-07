@@ -19,8 +19,15 @@ function _get(modeOfTransport) {
   };
 };
 
-function _from(from) {
-  if (!from) return this;
+function _from(latitude, longitude) {
+  if (!latitude) return this;
+
+  let from;
+  if (typeof latitude === 'number') {
+    from = [ latitude, longitude ];
+  } else {
+    from = latitude;
+  }
   this._coordinates.from = from;
 
   if (!this._coordinates.to) return this;
@@ -32,8 +39,15 @@ function _from(from) {
   return this;
 };
 
-function _to(to) {
-  if (!to) return this;
+function _to(latitude, longitude) {
+  if (!latitude) return this;
+
+  let to;
+  if (typeof latitude === 'number') {
+    to = [ latitude, longitude ];
+  } else {
+    to = latitude;
+  }
   this._coordinates.to = to;
 
   if (!this._coordinates.from) return this;

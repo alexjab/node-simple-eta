@@ -25,8 +25,8 @@ describe('speed.js', function() {
 
   describe('#inferModeOfTransportFromDistance()', () => {
     it('should infer the mode of transport based on the distance', () => {
-      const inputs = [700, 999, 1000, 1001, 1520];
-      const expected = [ 'walking', 'walking', 'walking', 'driving', 'driving', 'driving', 'driving' ];
+      const inputs = [1400, 1999, 2000, 2001, 2520];
+      const expected = [ 'walking', 'walking', 'driving', 'driving', 'driving' ];
       inputs.forEach((distance, i) => {
         speed.inferModeOfTransportFromDistance(distance).should.equal(expected[i]);
       });
