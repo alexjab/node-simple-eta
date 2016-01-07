@@ -121,5 +121,20 @@ simpleETA([48.835527, 2.286271], [48.889798, 2.301743]).get('walking');
 // => returns { distance: 7167, duration: 6450, mode: 'walking' }
 ```
 
+## Running the tests
+The library has been written in ES2015, but is distributed in ES5.
+
+Running the tests will first build the library, that is transpiling the files in `./src` from ES2015 to ES5 to `./lib`.
+
+```
+npm test
+```
+
+If you want to build it only, just run:
+
+```
+npm run build
+```
+
 ## License (MIT)
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
