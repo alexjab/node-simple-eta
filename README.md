@@ -11,9 +11,26 @@ The license is MIT.
 const eta = require('simple-eta');
 eta([48.835527, 2.286271], [48.889798, 2.301743]).get();
 
-// => { distance: 7167, duration: 516, mode: 'driving' }
+// returns { distance: 7167, duration: 516, mode: 'driving' }
 // IS
+
+// All methods
+eta()
+	.from([48.835527, 2.286271])
+	.to([48.889798, 2.301743])
+	.waypoint(48.87171565, 2.273826599)
+	.get();
+// returns { distance: 8987, duration: 647, mode: 'driving' }
 ```
+
+Methods:
+
+Name         | Description
+-------------|------------
+`from()`     | Specifies a starting point
+`to()`       | Specifies a destination point
+`waypoint()` | Adds a waypoint to the list of waypoints
+`get()`      | Gets the ETA (the computed distance, duration and mode of transportation)
 
 ## The approximate distance
 The distance is the [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry) between the starting and destination points.
@@ -61,7 +78,7 @@ const simpleETA = require('simple-eta');
 simpleETA();
 simpleETA([48.835527, 2.286271]);
 simpleETA([48.835527, 2.286271], [48.889798, 2.301743]);
-// => returns {...}
+// returns {...}
 ```
 
 ### #from(arrayOfCoordinates), #from(latitude, longitude)
@@ -81,7 +98,7 @@ Example:
 ```
 simpleETA().from([48.835527, 2.286271]);
 simpleETA().from(48.835527, 2.286271);
-// => returns {...}
+// returns {...}
 ```
 
 ### #to(arrayOfCoordinates), #to(latitude, longitude)
@@ -101,7 +118,7 @@ Example:
 ```
 simpleETA().to([48.835527, 2.286271]);
 simpleETA().to(48.835527, 2.286271);
-// => returns {...}
+// returns {...}
 ```
 
 ### #waypoint(arrayOfCoordinates), #waypoint(latitude, longitude)
@@ -121,7 +138,7 @@ Example:
 ```
 eta(...).waypoint([48.87171565, 2.273826599]);
 eta(...).waypoint(48.87171565, 2.273826599);
-// => returns {...}
+// returns {...}
 ```
 
 ### #get([modeOfTransportation])
@@ -135,10 +152,10 @@ Example:
 
 ```
 simpleETA([48.835527, 2.286271], [48.889798, 2.301743]).get();
-// => returns { distance: 7167, duration: 516, mode: 'driving' }
+// returns { distance: 7167, duration: 516, mode: 'driving' }
 
 simpleETA([48.835527, 2.286271], [48.889798, 2.301743]).get('walking');
-// => returns { distance: 7167, duration: 6450, mode: 'walking' }
+// returns { distance: 7167, duration: 6450, mode: 'walking' }
 ```
 
 ## Running the tests
