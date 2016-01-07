@@ -18,11 +18,10 @@ export function inferModeOfTransportFromDistance(distance) {
     return 'walking';
   }
   return 'driving';
-};
+}
 
 export function getAverageSpeed(distance, modeOfTransport) {
-  let meanSpeed = MODE_SPEEDS[modeOfTransport.toUpperCase()];
-  let subjectiveDistance;
+  const meanSpeed = MODE_SPEEDS[modeOfTransport.toUpperCase()];
 
   if (distance < 1000) {
     return meanSpeed.SHORT * 1000 / 3600;
@@ -31,4 +30,4 @@ export function getAverageSpeed(distance, modeOfTransport) {
     return meanSpeed.MEDIUM * 1000 / 3600;
   }
   return meanSpeed.LONG * 1000 / 3600;
-};
+}

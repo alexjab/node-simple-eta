@@ -1,11 +1,12 @@
 {
   "name": "simple-eta",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "An approximate, API-less, ETA library",
   "main": "index.js",
   "scripts": {
-    "test": "npm run build && mocha",
-    "build": "gulp"
+    "build": "gulp",
+    "lint": "eslint ./src",
+    "test": "npm run lint && npm run build && mocha"
   },
   "keywords": [
     "ETA"
@@ -14,6 +15,8 @@
   "license": "MIT",
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.0.2",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
     "mocha": "^2.3.4",

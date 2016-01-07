@@ -10,14 +10,16 @@ function _get(modeOfTransport) {
 
   const averageSpeed = speed.getAverageSpeed(this._distance, modeOfTransport);
 
+  const distance = Math.round(this._distance);
   const duration = dists.getAverageETA(this._distance, averageSpeed);
+  const mode = modeOfTransport;
 
   return {
-    distance: Math.round(this._distance),
-    duration: duration,
-    mode: modeOfTransport
+    distance,
+    duration,
+    mode
   };
-};
+}
 
 function _from(latitude, longitude) {
   if (!latitude) return this;
@@ -37,7 +39,7 @@ function _from(latitude, longitude) {
   args.push.apply(args, this._coordinates.to);
   this._distance = dists.getLonguestDistance.apply(this, args);
   return this;
-};
+}
 
 function _to(latitude, longitude) {
   if (!latitude) return this;
@@ -57,7 +59,7 @@ function _to(latitude, longitude) {
   args.push.apply(args, to);
   this._distance = dists.getLonguestDistance.apply(this, args);
   return this;
-};
+}
 
 export function simpleETA(from, to) {
   const eta = {
@@ -76,5 +78,4 @@ export function simpleETA(from, to) {
   eta.to(to);
 
   return eta;
-};
-
+}
