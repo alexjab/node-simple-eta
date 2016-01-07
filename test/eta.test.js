@@ -34,27 +34,23 @@ describe('eta.js', () => {
       eta.should.not.have.property('_distance');
     });
 
-    it('should allow chainable methods when calling only `from`', () => {
-      const eta = simpleETA()
-        .from([ Math.random() * 100, Math.random() * 10 ])
-        .get();
-      should.exist(eta);
+    it('should allow chainable methods when calling `from`', () => {
+      const eta = simpleETA();
+      eta.from([ Math.random() * 100, Math.random() * 10 ])
+        .should.eql(eta);
     });
 
-    it('should allow chainable methods when calling only `to`', () => {
-      const eta = simpleETA()
-        .to([ Math.random() * 100, Math.random() * 10 ])
-        .get();
-      should.exist(eta);
+    it('should allow chainable methods when calling `to`', () => {
+      const eta = simpleETA();
+      eta.to([ Math.random() * 100, Math.random() * 10 ])
+        .should.equal(eta);
     });
 
-    it('should allow chainable methods when calling both `from` and `to`', () => {
-      const eta = simpleETA()
-        .from([ Math.random() * 100, Math.random() * 10 ])
-        .to([ Math.random() * 100, Math.random() * 10 ])
-        .from([ Math.random() * 100, Math.random() * 10 ])
-        .get();
-      should.exist(eta);
+    it('should allow chainable methods when calling `waypoint`', () => {
+      const eta = simpleETA();
+      eta.waypoint([ Math.random() * 100, Math.random() * 10 ])
+        .waypoint([ Math.random() * 100, Math.random() * 10 ])
+        .should.equal(eta);
     });
   });
 

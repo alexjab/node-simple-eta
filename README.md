@@ -104,6 +104,26 @@ simpleETA().to(48.835527, 2.286271);
 // => returns {...}
 ```
 
+### #waypoint(arrayOfCoordinates), #waypoint(latitude, longitude)
+Adds a waypoint to the list of waypoints.
+
+Parameters:
+
+ - `arrayOfCoordinates` : `Array of Number`,
+
+or
+
+ - `latitude`: `Array of Number`,
+ - `longitude`: `Array of Number`.
+
+Example:
+
+```
+eta(...).waypoint([48.87171565, 2.273826599]);
+eta(...).waypoint(48.87171565, 2.273826599);
+// => returns {...}
+```
+
 ### #get([modeOfTransportation])
 Gets the ETA (the computed distance, duration and mode of transportation).
 
