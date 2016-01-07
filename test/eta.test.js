@@ -117,7 +117,6 @@ describe('eta.js', () => {
       eta2._coordinates.should.have.property('from');
       eta2._coordinates.from.should.eql([ lat, lon ]);
     });
-
   });
 
   describe('#to()', () => {
@@ -166,7 +165,40 @@ describe('eta.js', () => {
       eta2._coordinates.should.have.property('to');
       eta2._coordinates.to.should.eql([ lat, lon ]);
     });
+  });
 
+  describe('#waypoint()', () => {
+    it('should push a set of coordinates to the `waypoint` parameter of the eta (array of latitude and longitude)', () => {
+      const waypoint = [ Math.random() * 100, Math.random() * 10 ];
+
+      const eta = simpleETA();
+      eta.waypoint(waypoint);
+
+      should.not.exist(eta._coordinates.to);
+      should.not.exist(eta._coordinates.from);
+      eta.should.not.have.property('_distance');
+      eta._coordinates.waypoints.length.should.equal(1);
+      eta._coordinates.waypoints[0].should.eql(waypoint);
+    });
+
+    it('should push a set of coordinates to the `waypoint` parameter of the eta (latitude and longitude)', () => {
+      const lat = Math.random() * 100;
+      const lon = Math.random() * 10;
+
+      const eta1 = simpleETA();
+      eta1.waypoint(lat, lon);
+
+      should.not.exist(eta1._coordinates.to);
+      should.not.exist(eta1._coordinates.from);
+      eta1._coordinates.waypoints.length.should.equal(1);
+      eta1._coordinates.waypoints[0].should.eql([ lat, lon ]);
+
+      const eta2 = simpleETA();
+      eta2.waypoint([ lat, lon ]);
+
+      eta2._coordinates.waypoints.length.should.equal(1);
+      eta2._coordinates.waypoints[0].should.eql([ lat, lon ]);
+    });
   });
 
   describe('#get()', () => {

@@ -34,10 +34,10 @@ function _from(latitude, longitude) {
 
   if (!this._coordinates.to) return this;
 
-  const args = [];
-  args.push.apply(args, from);
-  args.push.apply(args, this._coordinates.to);
-  this._distance = dists.getLonguestDistance.apply(this, args);
+  this._distance = dists.getLonguestDistanceFromCoordinates(
+      from,
+      this._coordinates.to,
+      this._coordinates.waypoints);
   return this;
 }
 
@@ -54,10 +54,28 @@ function _to(latitude, longitude) {
 
   if (!this._coordinates.from) return this;
 
-  const args = [];
-  args.push.apply(args, this._coordinates.from);
-  args.push.apply(args, to);
-  this._distance = dists.getLonguestDistance.apply(this, args);
+  this._distance = dists.getLonguestDistanceFromCoordinates(
+      this._coordinates.from,
+      to,
+      this._coordinates.waypoints);
+  return this;
+}
+
+function _waypoint(latitude, longitude) {
+  if (!latitude) return this;
+
+  let waypoint = latitude;
+  if (typeof latitude === 'number') {
+    waypoint = [ latitude, longitude ];
+  }
+  this._coordinates.waypoints.push(waypoint);
+
+  if (!this._coordinates.from || !this._coordinates.to) return this;
+
+  this._distance = dists.getLonguestDistanceFromCoordinates(
+      this._coordinates.from,
+      this._coordinates.to,
+      this._coordinates.waypoints);
   return this;
 }
 
@@ -73,6 +91,7 @@ export function simpleETA(from, to) {
   eta.get = _get.bind(eta);
   eta.from = _from.bind(eta);
   eta.to = _to.bind(eta);
+  eta.waypoint = _waypoint.bind(eta);
 
   eta.from(from);
   eta.to(to);

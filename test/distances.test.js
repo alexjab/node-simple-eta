@@ -34,19 +34,37 @@ describe('distances.js', function() {
   });
 
   describe('#getLonguestDistance()', function() {
-    const inputs = [
-      [48.835527, 2.286271, 48.889798, 2.301743],
-      [48.835527, 2.286271, 48.876856, 2.325345],
-      [61.418407, 23.616828, 61.448778, 23.854064],
-      [60.170041, 24.940553, 66.494505, 25.724362]
-    ];
     it('should return the longuest distance from two points', function() {
-      inputs.forEach((input, i) => {
-        const latDiff = dists.getShortestDistance(input[0], input[1], input[0], input[3]);
-        const lonDiff = dists.getShortestDistance(input[0], input[3], input[2], input[3]);
+      const input = [ Math.random() * 100, Math.random()*10, Math.random() * 100, Math.random()*10 ];
+      const latDiff = dists.getShortestDistance(input[0], input[1], input[0], input[3]);
+      const lonDiff = dists.getShortestDistance(input[0], input[3], input[2], input[3]);
 
-        dists.getLonguestDistance.apply(this, input).should.equal(latDiff + lonDiff);
-      });
+      dists.getLonguestDistance.apply(this, input).should.equal(latDiff + lonDiff);
+    });
+  });
+
+  describe('#getLonguestDistanceFromCoordinates()', function() {
+    it('should return the Manhattan distance between all the points of an array (`from` and `to`)', function() {
+      const from = [ Math.random() * 100, Math.random()*10 ];
+      const to = [ Math.random() * 100, Math.random()*10 ];
+      const latDiff = dists.getShortestDistance(from[0], from[1], from[0], to[1]);
+      const lonDiff = dists.getShortestDistance(from[0], to[1], to[0], to[1]);
+
+      dists.getLonguestDistanceFromCoordinates(from, to).should.equal(latDiff + lonDiff);
+    });
+
+    it('should return the Manhattan distance between all the points of an array (`from`,`to` and `waypoints`)', function() {
+      const from = [ Math.random() * 100, Math.random()*10 ];
+      const to = [ Math.random() * 100, Math.random()*10 ];
+      const w1 = [ Math.random() * 100, Math.random()*10 ];
+      let latDiff = 0;
+      let lonDiff = 0;
+      latDiff += dists.getShortestDistance(from[0], from[1], from[0], w1[1]);
+      lonDiff += dists.getShortestDistance(from[0], w1[1], w1[0], w1[1]);
+      latDiff += dists.getShortestDistance(w1[0], w1[1], w1[0], to[1]);
+      lonDiff += dists.getShortestDistance(w1[0], to[1], to[0], to[1]);
+
+      dists.getLonguestDistanceFromCoordinates(from, to, [w1]).should.be.approximately(latDiff + lonDiff, 1E-5);
     });
   });
 
