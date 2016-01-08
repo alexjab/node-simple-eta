@@ -2,9 +2,9 @@
 An approximate, API-less, ETA library
 
 This library gives you the ETA (Estimated Time of Arrival) to get from a starting point to a destination point;
-the ETA returned is simply based on an approximate of the distance between the two points and speed.
+the ETA returned is simply based on an __approximate__ of the distance between the two points and speed.
 
-The license is MIT.
+This library is released under the MIT license.
 
 ## TL;DR
 ```
@@ -33,10 +33,12 @@ Name         | Description
 `get()`      | Gets the ETA (the computed distance, duration and mode of transportation)
 
 ## The approximate distance
-The distance is the [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry) between the starting and destination points.
+The distance used is the __computed__ [Manhattan distance](https://en.wikipedia.org/wiki/Taxicab_geometry) between the starting and destination points.
 
 ## Mode of transportation and speed
-Approximate driving speeds are used according to the following rules:
+Two modes of transportation are available at teh moment: _walking_ and _driving_.
+
+Approximate speeds are used according to the following rules:
 
 _Walking_: __4 km/h__
 
@@ -48,7 +50,7 @@ _Driving_:
  < 20000      | __50__
  >= 20000     | __90__
  
-If you do not explicitely specify a mode of transportation, the following rule will be used to infer it:
+If you do not explicitely specify a mode of transportation, the library will infer it from the overall distance according to the following rules:
 
  Distance (m) | Mode of transportation
 --------------|-----------------------
@@ -146,7 +148,7 @@ Gets the ETA (the computed distance, duration and mode of transportation).
 
 Parameters:
 
- - `(optional) modeOfTransporation`: `walking`, `driving`.
+ - `(optional) modeOfTransporation`: `walking`, `driving`. If you do not explicitely set this parameter, its value will be infered according to the rules explained above.
 
 Example:
 
