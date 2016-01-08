@@ -3,7 +3,7 @@
 import * as dists from './distances.js';
 import * as speed from './speed.js';
 
-function _get(modeOfTransport) {
+export function _get(modeOfTransport) {
   if (!modeOfTransport) {
     modeOfTransport = speed.inferModeOfTransportFromDistance(this._distance);
   }
@@ -21,7 +21,7 @@ function _get(modeOfTransport) {
   };
 }
 
-function _from(latitude, longitude) {
+export function _from(latitude, longitude) {
   if (!latitude) return this;
 
   let from;
@@ -41,7 +41,7 @@ function _from(latitude, longitude) {
   return this;
 }
 
-function _to(latitude, longitude) {
+export function _to(latitude, longitude) {
   if (!latitude) return this;
 
   let to;
@@ -61,7 +61,7 @@ function _to(latitude, longitude) {
   return this;
 }
 
-function _waypoint(latitude, longitude) {
+export function _waypoint(latitude, longitude) {
   if (!latitude) return this;
 
   let waypoint = latitude;
@@ -77,24 +77,4 @@ function _waypoint(latitude, longitude) {
       this._coordinates.to,
       this._coordinates.waypoints);
   return this;
-}
-
-export function simpleETA(from, to) {
-  const eta = {
-    _coordinates: {
-      from: null,
-      to: null,
-      waypoints: []
-    }
-  };
-
-  eta.get = _get.bind(eta);
-  eta.from = _from.bind(eta);
-  eta.to = _to.bind(eta);
-  eta.waypoint = _waypoint.bind(eta);
-
-  eta.from(from);
-  eta.to(to);
-
-  return eta;
 }
