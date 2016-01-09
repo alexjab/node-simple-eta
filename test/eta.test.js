@@ -113,6 +113,36 @@ describe('eta.js', () => {
       eta2.coordinates.should.have.property('from');
       eta2.coordinates.from.should.eql([ lat, lon ]);
     });
+
+    it('should throw an error (invalid parameters)', () => {
+      let error;
+      try {
+        simpleETA().from([[ Math.random() * 100, Math.random()*10 ]]);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2/);
+
+      try {
+        simpleETA().from([ null, Math.random()*10 ]);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2/);
+
+      try {
+        simpleETA().from(null, Math.random()*10);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/2.*number.*parameter/);
+    });
   });
 
   describe('#to()', () => {

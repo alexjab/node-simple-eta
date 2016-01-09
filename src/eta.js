@@ -2,16 +2,20 @@
 
 import * as dists from './distances.js';
 import * as speed from './speed.js';
+import * as schema from './eta.schema.js';
 
 class SimpleETA {
   constructor(from, to) {
+    schema.validateConstructorFromTo(from, to);
+
     this.coordinates = {
       from: null,
       to: null,
       waypoints: []
     };
-    this.from(from);
-    this.to(to);
+
+    if (from) this.from(from);
+    if (to) this.to(to);
   }
 
   get(modeOfTransport) {
@@ -33,14 +37,7 @@ class SimpleETA {
   }
 
   from(latitude, longitude) {
-    if (!latitude) return this;
-
-    let _from;
-    if (typeof latitude === 'number') {
-      _from = [ latitude, longitude ];
-    } else {
-      _from = latitude;
-    }
+    const _from = schema.validateCoordinates(latitude, longitude);
     this.coordinates.from = _from;
 
     if (!this.coordinates.to) return this;
@@ -55,12 +52,7 @@ class SimpleETA {
   to(latitude, longitude) {
     if (!latitude) return this;
 
-    let _to;
-    if (typeof latitude === 'number') {
-      _to = [ latitude, longitude ];
-    } else {
-      _to = latitude;
-    }
+    const _to = schema.validateCoordinates(latitude, longitude);
     this.coordinates.to = _to;
 
     if (!this.coordinates.from) return this;
@@ -75,10 +67,7 @@ class SimpleETA {
   waypoint(latitude, longitude) {
     if (!latitude) return this;
 
-    let _waypoint = latitude;
-    if (typeof latitude === 'number') {
-      _waypoint = [ latitude, longitude ];
-    }
+    const _waypoint = schema.validateCoordinates(latitude, longitude);
     this.coordinates.waypoints.push(_waypoint);
 
     if (!this.coordinates.from || !this.coordinates.to) return this;
