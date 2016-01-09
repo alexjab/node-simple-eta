@@ -52,6 +52,45 @@ describe('eta.js', () => {
         .waypoint([ Math.random() * 100, Math.random() * 10 ])
         .should.equal(eta);
     });
+
+    it('should throw an error (invalid parameters)', () => {
+      let error;
+      try {
+        simpleETA([[ Math.random() * 100, Math.random()*10 ]]);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2.*from/);
+
+      try {
+        simpleETA([ null, Math.random()*10 ]);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2.*from/);
+
+      try {
+        simpleETA(null, Math.random()*10);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2.*from/);
+
+      try {
+        simpleETA([ Math.random() * 100, Math.random()*10 ], Math.random()*10);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2.*to/);
+    });
   });
 
   describe('#from()', () => {

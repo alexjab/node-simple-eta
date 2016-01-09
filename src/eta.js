@@ -6,7 +6,7 @@ import * as schema from './eta.schema.js';
 
 class SimpleETA {
   constructor(from, to) {
-    schema.validateConstructorFromTo(from, to);
+    schema.validateConstructor(from, to);
 
     this.coordinates = {
       from: null,
