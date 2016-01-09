@@ -19,6 +19,8 @@ class SimpleETA {
   }
 
   get(modeOfTransport) {
+    schema.validateModeOfTransport(modeOfTransport);
+
     if (!modeOfTransport) {
       modeOfTransport = speed.inferModeOfTransportFromDistance(this.distance);
     }
@@ -50,8 +52,6 @@ class SimpleETA {
   }
 
   to(latitude, longitude) {
-    if (!latitude) return this;
-
     const _to = schema.validateCoordinates(latitude, longitude);
     this.coordinates.to = _to;
 
@@ -65,8 +65,6 @@ class SimpleETA {
   }
 
   waypoint(latitude, longitude) {
-    if (!latitude) return this;
-
     const _waypoint = schema.validateCoordinates(latitude, longitude);
     this.coordinates.waypoints.push(_waypoint);
 

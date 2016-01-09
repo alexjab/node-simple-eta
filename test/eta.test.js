@@ -230,6 +230,36 @@ describe('eta.js', () => {
       eta2.coordinates.should.have.property('to');
       eta2.coordinates.to.should.eql([ lat, lon ]);
     });
+
+    it('should throw an error (invalid parameters)', () => {
+      let error;
+      try {
+        simpleETA().to([[ Math.random() * 100, Math.random()*10 ]]);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2/);
+
+      try {
+        simpleETA().to([ null, Math.random()*10 ]);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2/);
+
+      try {
+        simpleETA().to(null, Math.random()*10);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/2.*number.*parameter/);
+    });
   });
 
   describe('#waypoint()', () => {
@@ -263,6 +293,36 @@ describe('eta.js', () => {
 
       eta2.coordinates.waypoints.length.should.equal(1);
       eta2.coordinates.waypoints[0].should.eql([ lat, lon ]);
+    });
+
+    it('should throw an error (invalid parameters)', () => {
+      let error;
+      try {
+        simpleETA().waypoint([[ Math.random() * 100, Math.random()*10 ]]);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2/);
+
+      try {
+        simpleETA().waypoint([ null, Math.random()*10 ]);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/array.*number.*length.*2/);
+
+      try {
+        simpleETA().waypoint(null, Math.random()*10);
+      } catch(e) {
+        error = e;
+      }
+
+      error.should.be.Error();
+      error.message.should.match(/2.*number.*parameter/);
     });
   });
 
