@@ -3,78 +3,94 @@
 import * as dists from './distances.js';
 import * as speed from './speed.js';
 
-export function _get(modeOfTransport) {
-  if (!modeOfTransport) {
-    modeOfTransport = speed.inferModeOfTransportFromDistance(this._distance);
+class SimpleETA {
+  constructor(from, to) {
+    this.coordinates = {
+      from: null,
+      to: null,
+      waypoints: []
+    };
+    this.from(from);
+    this.to(to);
   }
 
-  const averageSpeed = speed.getAverageSpeed(this._distance, modeOfTransport);
+  get(modeOfTransport) {
+    if (!modeOfTransport) {
+      modeOfTransport = speed.inferModeOfTransportFromDistance(this.distance);
+    }
 
-  const distance = Math.round(this._distance);
-  const duration = dists.getAverageETA(this._distance, averageSpeed);
-  const mode = modeOfTransport;
+    const averageSpeed = speed.getAverageSpeed(this.distance, modeOfTransport);
 
-  return {
-    distance,
-    duration,
-    mode
-  };
+    const distance = Math.round(this.distance);
+    const duration = dists.getAverageETA(this.distance, averageSpeed);
+    const mode = modeOfTransport;
+
+    return {
+      distance,
+      duration,
+      mode
+    };
+  }
+
+  from(latitude, longitude) {
+    if (!latitude) return this;
+
+    let _from;
+    if (typeof latitude === 'number') {
+      _from = [ latitude, longitude ];
+    } else {
+      _from = latitude;
+    }
+    this.coordinates.from = _from;
+
+    if (!this.coordinates.to) return this;
+
+    this.distance = dists.getLonguestDistanceFromCoordinates(
+      _from,
+      this.coordinates.to,
+      this.coordinates.waypoints);
+    return this;
+  }
+
+  to(latitude, longitude) {
+    if (!latitude) return this;
+
+    let _to;
+    if (typeof latitude === 'number') {
+      _to = [ latitude, longitude ];
+    } else {
+      _to = latitude;
+    }
+    this.coordinates.to = _to;
+
+    if (!this.coordinates.from) return this;
+
+    this.distance = dists.getLonguestDistanceFromCoordinates(
+      this.coordinates.from,
+      _to,
+      this.coordinates.waypoints);
+    return this;
+  }
+
+  waypoint(latitude, longitude) {
+    if (!latitude) return this;
+
+    let _waypoint = latitude;
+    if (typeof latitude === 'number') {
+      _waypoint = [ latitude, longitude ];
+    }
+    this.coordinates.waypoints.push(_waypoint);
+
+    if (!this.coordinates.from || !this.coordinates.to) return this;
+
+    this._distance = dists.getLonguestDistanceFromCoordinates(
+      this.coordinates.from,
+      this.coordinates.to,
+      this.coordinates.waypoints);
+    return this;
+  }
 }
 
-export function _from(latitude, longitude) {
-  if (!latitude) return this;
-
-  let from;
-  if (typeof latitude === 'number') {
-    from = [ latitude, longitude ];
-  } else {
-    from = latitude;
-  }
-  this._coordinates.from = from;
-
-  if (!this._coordinates.to) return this;
-
-  this._distance = dists.getLonguestDistanceFromCoordinates(
-      from,
-      this._coordinates.to,
-      this._coordinates.waypoints);
-  return this;
-}
-
-export function _to(latitude, longitude) {
-  if (!latitude) return this;
-
-  let to;
-  if (typeof latitude === 'number') {
-    to = [ latitude, longitude ];
-  } else {
-    to = latitude;
-  }
-  this._coordinates.to = to;
-
-  if (!this._coordinates.from) return this;
-
-  this._distance = dists.getLonguestDistanceFromCoordinates(
-      this._coordinates.from,
-      to,
-      this._coordinates.waypoints);
-  return this;
-}
-
-export function _waypoint(latitude, longitude) {
-  if (!latitude) return this;
-
-  let waypoint = latitude;
-  if (typeof latitude === 'number') {
-    waypoint = [ latitude, longitude ];
-  }
-  this._coordinates.waypoints.push(waypoint);
-
-  if (!this._coordinates.from || !this._coordinates.to) return this;
-
-  this._distance = dists.getLonguestDistanceFromCoordinates(
-      this._coordinates.from,
-      this._coordinates.to,
-      this._coordinates.waypoints);
-  return this;
+export default function simpleETA(from, to) {
+  return new SimpleETA(from, to);
 }

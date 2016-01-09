@@ -10,28 +10,28 @@ describe('eta.js', () => {
       const from = [ Math.random() * 100, Math.random() * 10 ];
       const to = [ Math.random() * 100, Math.random() * 10 ];
       const eta = simpleETA(from, to);
-      should.exist(eta._coordinates.from);
-      should.exist(eta._coordinates.to);
-      eta._coordinates.from.should.eql(from);
-      eta._coordinates.to.should.eql(to);
-      eta.should.have.property('_distance');
-      eta._distance.should.not.be.NaN();
+      should.exist(eta.coordinates.from);
+      should.exist(eta.coordinates.to);
+      eta.coordinates.from.should.eql(from);
+      eta.coordinates.to.should.eql(to);
+      eta.should.have.property('distance');
+      eta.distance.should.not.be.NaN();
     });
 
     it('should set the `from` parameter of the eta (semi-implicit ETA intialization)', () => {
       const from = [ Math.random() * 100, Math.random() * 10 ];
       const eta = simpleETA(from);
-      should.exist(eta._coordinates.from);
-      should.not.exist(eta._coordinates.to);
-      eta._coordinates.from.should.eql(from);
-      eta.should.not.have.property('_distance');
+      should.exist(eta.coordinates.from);
+      should.not.exist(eta.coordinates.to);
+      eta.coordinates.from.should.eql(from);
+      eta.should.not.have.property('distance');
     });
 
     it('should not set the `from` nor the `to` parameter of the eta (empty ETA intialization)', () => {
       const eta = simpleETA();
-      should.not.exist(eta._coordinates.from);
-      should.not.exist(eta._coordinates.to);
-      eta.should.not.have.property('_distance');
+      should.not.exist(eta.coordinates.from);
+      should.not.exist(eta.coordinates.to);
+      eta.should.not.have.property('distance');
     });
 
     it('should allow chainable methods when calling `from`', () => {
@@ -62,14 +62,14 @@ describe('eta.js', () => {
       const from2 = [ Math.random() * 100, Math.random() * 10 ];
 
       const eta = simpleETA(from1, to);
-      const distance1 = eta._distance;
+      const distance1 = eta.distance;
       eta.from(from2);
 
-      eta._coordinates.from.should.eql(from2);
-      eta._coordinates.from.should.not.eql(from1);
-      eta.should.have.property('_distance');
-      eta._distance.should.not.be.NaN();
-      eta._distance.should.not.equal(distance1);
+      eta.coordinates.from.should.eql(from2);
+      eta.coordinates.from.should.not.eql(from1);
+      eta.should.have.property('distance');
+      eta.distance.should.not.be.NaN();
+      eta.distance.should.not.equal(distance1);
     });
 
     it('should update the `from` parameter of the eta (semi-implicit ETA intialization)', () => {
@@ -79,10 +79,10 @@ describe('eta.js', () => {
       const eta = simpleETA(from1);
       eta.from(from2);
 
-      eta._coordinates.from.should.eql(from2);
-      eta._coordinates.from.should.not.eql(from1);
-      should.not.exist(eta._coordinates.to);
-      eta.should.not.have.property('_distance');
+      eta.coordinates.from.should.eql(from2);
+      eta.coordinates.from.should.not.eql(from1);
+      should.not.exist(eta.coordinates.to);
+      eta.should.not.have.property('distance');
     });
 
     it('should set the `from` parameter of the eta (empty ETA intialization, array of coordinates)', () => {
@@ -91,9 +91,9 @@ describe('eta.js', () => {
       const eta = simpleETA();
       eta.from(from);
 
-      eta._coordinates.from.should.eql(from);
-      should.not.exist(eta._coordinates.to);
-      eta.should.not.have.property('_distance');
+      eta.coordinates.from.should.eql(from);
+      should.not.exist(eta.coordinates.to);
+      eta.should.not.have.property('distance');
     });
 
     it('should set the `from` parameter of the eta (empty ETA intialization, latitude and longitude)', () => {
@@ -103,15 +103,15 @@ describe('eta.js', () => {
       const eta1 = simpleETA();
       eta1.from(lat, lon);
 
-      should.not.exist(eta1._coordinates.to);
-      eta1._coordinates.should.have.property('from');
-      eta1._coordinates.from.should.eql([ lat, lon ]);
+      should.not.exist(eta1.coordinates.to);
+      eta1.coordinates.should.have.property('from');
+      eta1.coordinates.from.should.eql([ lat, lon ]);
 
       const eta2 = simpleETA();
       eta2.from([ lat, lon ]);
 
-      eta2._coordinates.should.have.property('from');
-      eta2._coordinates.from.should.eql([ lat, lon ]);
+      eta2.coordinates.should.have.property('from');
+      eta2.coordinates.from.should.eql([ lat, lon ]);
     });
   });
 
@@ -123,14 +123,14 @@ describe('eta.js', () => {
       const to2 = [ Math.random() * 100, Math.random() * 10 ];
 
       const eta = simpleETA(from, to1);
-      const distance1 = eta._distance;
+      const distance1 = eta.distance;
       eta.to(to2);
 
-      eta._coordinates.to.should.eql(to2);
-      eta._coordinates.to.should.not.eql(to1);
-      eta.should.have.property('_distance');
-      eta._distance.should.not.be.NaN();
-      eta._distance.should.not.equal(distance1);
+      eta.coordinates.to.should.eql(to2);
+      eta.coordinates.to.should.not.eql(to1);
+      eta.should.have.property('distance');
+      eta.distance.should.not.be.NaN();
+      eta.distance.should.not.equal(distance1);
     });
 
     it('should set the `to` parameter of the eta (empty ETA intialization)', () => {
@@ -139,9 +139,9 @@ describe('eta.js', () => {
       const eta = simpleETA();
       eta.to(to);
 
-      eta._coordinates.to.should.eql(to);
-      should.not.exist(eta._coordinates.from);
-      eta.should.not.have.property('_distance');
+      eta.coordinates.to.should.eql(to);
+      should.not.exist(eta.coordinates.from);
+      eta.should.not.have.property('distance');
     });
 
     it('should set the `to` parameter of the eta (empty ETA intialization, latitude and longitude)', () => {
@@ -151,15 +151,15 @@ describe('eta.js', () => {
       const eta1 = simpleETA();
       eta1.to(lat, lon);
 
-      should.not.exist(eta1._coordinates.from);
-      eta1._coordinates.should.have.property('to');
-      eta1._coordinates.to.should.eql([ lat, lon ]);
+      should.not.exist(eta1.coordinates.from);
+      eta1.coordinates.should.have.property('to');
+      eta1.coordinates.to.should.eql([ lat, lon ]);
 
       const eta2 = simpleETA();
       eta2.to([ lat, lon ]);
 
-      eta2._coordinates.should.have.property('to');
-      eta2._coordinates.to.should.eql([ lat, lon ]);
+      eta2.coordinates.should.have.property('to');
+      eta2.coordinates.to.should.eql([ lat, lon ]);
     });
   });
 
@@ -170,11 +170,11 @@ describe('eta.js', () => {
       const eta = simpleETA();
       eta.waypoint(waypoint);
 
-      should.not.exist(eta._coordinates.to);
-      should.not.exist(eta._coordinates.from);
-      eta.should.not.have.property('_distance');
-      eta._coordinates.waypoints.length.should.equal(1);
-      eta._coordinates.waypoints[0].should.eql(waypoint);
+      should.not.exist(eta.coordinates.to);
+      should.not.exist(eta.coordinates.from);
+      eta.should.not.have.property('distance');
+      eta.coordinates.waypoints.length.should.equal(1);
+      eta.coordinates.waypoints[0].should.eql(waypoint);
     });
 
     it('should push a set of coordinates to the `waypoint` parameter of the eta (latitude and longitude)', () => {
@@ -184,16 +184,16 @@ describe('eta.js', () => {
       const eta1 = simpleETA();
       eta1.waypoint(lat, lon);
 
-      should.not.exist(eta1._coordinates.to);
-      should.not.exist(eta1._coordinates.from);
-      eta1._coordinates.waypoints.length.should.equal(1);
-      eta1._coordinates.waypoints[0].should.eql([ lat, lon ]);
+      should.not.exist(eta1.coordinates.to);
+      should.not.exist(eta1.coordinates.from);
+      eta1.coordinates.waypoints.length.should.equal(1);
+      eta1.coordinates.waypoints[0].should.eql([ lat, lon ]);
 
       const eta2 = simpleETA();
       eta2.waypoint([ lat, lon ]);
 
-      eta2._coordinates.waypoints.length.should.equal(1);
-      eta2._coordinates.waypoints[0].should.eql([ lat, lon ]);
+      eta2.coordinates.waypoints.length.should.equal(1);
+      eta2.coordinates.waypoints[0].should.eql([ lat, lon ]);
     });
   });
 
